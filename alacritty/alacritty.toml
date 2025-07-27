@@ -1,0 +1,8 @@
+[window]
+opacity = 0.9
+decorations = "None"
+blur = true
+
+[font]
+normal = { family = "monospace", style = "Regular" }
+
