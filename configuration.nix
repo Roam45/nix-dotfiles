@@ -13,8 +13,12 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
+  # boot.loader.systemd-boot.enable = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "nodev";
+  boot.loader.grub.useOSProber = true;
 
   networking.hostName = "nixos-btw"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -46,21 +50,21 @@
   };
 
   hardware = {
-    opengl.enable = true;
+    graphics.enable = true;
     nvidia.modesetting.enable = true;
   };
 
 
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
- #	services.xserver = {
-#		enable = true;
-#		windowManager.qtile.enable = true;
-#		displayManager.sessionCommands = ''
-#			xwallpaper --zoom ~/walls/castle.jpg
-#			xset r rate 200 35 &
-#		'';
-#	};
+  #	services.xserver = {
+  #		enable = true;
+  #		windowManager.qtile.enable = true;
+  #		displayManager.sessionCommands = ''
+  #			xwallpaper --zoom ~/walls/castle.jpg
+  #			xset r rate 200 35 &
+  #		'';
+  #	};
 
 #	services.picom = {
 #		enable = true;
@@ -139,9 +143,6 @@
     fira-code-nerdfont
     lxappearance
     rofi-power-menu
-    breeze-qt5
-    breeze-icons
-    breeze-gtk
   ];
 
   environment.variables = {
