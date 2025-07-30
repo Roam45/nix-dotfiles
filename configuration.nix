@@ -13,12 +13,15 @@
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use the systemd-boot EFI boot loader.
-  # boot.loader.systemd-boot.enable = true;
-  # boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = false;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.useOSProber = true;
+  boot.loader.grub = {
+    enable = true;
+    efiSupport = true;
+    device = "nodev"; # or use actual device like "/dev/sda" if needed
+    useOSProber = true;
+  };
+  
 
   networking.hostName = "nixos-btw"; # Define your hostname.
   # Pick only one of the below networking options.
