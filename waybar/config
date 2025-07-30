@@ -1,0 +1,88 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 4,
+  // Add 'custom/fastfetch' to modules-left
+  "modules-left": ["custom/nixlogo", "custom/fastfetch", "sway/workspaces", "sway/mode"],
+  "modules-center": ["clock"],
+  "modules-right": ["pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray", "custom/powermenu"],
+
+  // NixOS Logo
+  "custom/nixlogo": {
+    "format": " ",
+    "tooltip": false,
+    "on-click": "alacritty -e sudo nixos-rebuild switch"  // Keep your existing terminal command
+  },
+
+  // NEW Fastfetch Button
+  "custom/fastfetch": {
+    "format": " ",  // Terminal icon (Nerd Font)
+    "tooltip": "Run Fastfetch",
+    "on-click": "alacritty -e bash -c \"echo -e '\n'; fastfetch; exec bash\""  // Opens in new Alacritty window
+  },
+
+  // Clock (now working)
+  "clock": {
+    "format": "  {:%H:%M}",
+    "tooltip-format": "<big>{:%A, %d %B %Y}</big>",
+    "interval": 1
+  },
+
+  // Workspaces (for Sway/i3)
+  "sway/workspaces": {
+    "format": "{name}",
+    "all-outputs": true
+  },
+
+  // System Monitoring
+  "cpu": {
+    "format": "  {usage}%",
+    "interval": 2,
+    "max-length": 10
+  },
+  "memory": {
+    "format": "  {used:0.1f}G",
+    "interval": 2
+  },
+  "temperature": {
+    "format": "  {temperatureC}°C",
+    "critical-threshold": 80,
+    "interval": 5
+  },
+
+  // Network
+  "network": {
+    "format-wifi": "  {essid} ({signalStrength}%)",
+    "format-ethernet": "  {ipaddr}",
+    "format-disconnected": "  Offline",
+    "interval": 5
+  },
+
+  // Audio
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-muted": "  Muted",
+    "format-icons": ["", "", ""],
+    "on-click": "pavucontrol"
+  },
+
+  // Battery
+  "battery": {
+    "format": "{icon}  {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "interval": 10
+  },
+
+  // Tray
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
+  },
+
+  "custom/powermenu": {
+    "format": "⏻",
+    "on-click": "rofi -show power-menu -modi power-menu:rofi-power-menu"
+  }
+  
+}

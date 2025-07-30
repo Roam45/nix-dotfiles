@@ -1,0 +1,102 @@
+* {
+  border: none;
+  border-radius: 4px;
+  font-family: "Monaspace", "FiraCode Nerd Font", monospace;
+  font-size: 13px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: rgba(40, 42, 54, 0.7);
+  color: #f8f8f2;
+  border-bottom: 1px solid rgba(100, 100, 100, 0.5);
+}
+
+/* NixOS Logo (Orange) */
+#custom-nixlogo {
+  color: #F0C674;
+  font-size: 16px;
+  padding: 0 8px;
+  margin: 4px 2px;
+}
+
+/* Workspaces (Blue) */
+#workspaces button {
+  color: #7c9fa6;
+  padding: 0 6px;
+  background: transparent;
+}
+
+#workspaces button.focused {
+  color: #5277C3;
+  font-weight: bold;
+}
+
+/* Clock (White) */
+#clock {
+  color: #ffffff;
+  background-color: #3B4252;
+  padding: 0 12px;
+  margin: 4px 2px;
+}
+
+/* System Stats (NixOS Colors) */
+#cpu {
+  color: #2e3440;
+  background-color: #F0C674;  /* Orange */
+  padding: 0 10px;
+  margin: 4px 2px;
+}
+
+#memory {
+  color: #2e3440;
+  background-color: #7c9fa6;  /* Light Blue */
+  padding: 0 10px;
+  margin: 4px 2px;
+}
+
+#temperature {
+  color: #2e3440;
+  background-color: #81A1C1;  /* Soft Blue */
+  padding: 0 10px;
+  margin: 4px 2px;
+}
+
+/* Network (Dynamic Colors) */
+#network {
+  color: #2e3440;
+  background-color: #A3BE8C;  /* Green */
+  padding: 0 10px;
+  margin: 4px 2px;
+}
+
+#network.disconnected {
+  background-color: #BF616A;  /* Red */
+}
+
+/* Battery (Color by Level) */
+#battery {
+  padding: 0 10px;
+  margin: 4px 2px;
+}
+
+#battery.charging {
+  color: #2e3440;
+  background-color: #A3BE8C;  /* Green */
+}
+
+#battery.warning:not(.charging) {
+  background-color: #EBCB8B;  /* Yellow */
+}
+
+#battery.critical:not(.charging) {
+  background-color: #BF616A;  /* Red */
+}
+
+/* Power Menu (Red) */
+#custom-powermenu {
+  color: #ffffff;
+  background-color: #BF616A;
+  padding: 0 12px;
+  margin: 4px 2px;
+}
