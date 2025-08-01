@@ -1,0 +1,32 @@
+# ~/.config/mako/config
+
+# Notification timeout in milliseconds
+timeout=4000
+
+# Font settings
+font=FiraCode Nerd Font 10
+
+# Background color with transparency (RGBA)
+background=#282828cc
+
+# Border color
+border-color=#458588
+
+# Text color
+text-color=#ebdbb2
+
+# Padding around notification content
+padding=10
+
+# Margin from the edges of the screen
+margin=15
+
+# Width and max height
+width=300
+max-height=200
+
+# Icon size in pixels
+icon-size=32
+
+# Border size
+border-size=2
