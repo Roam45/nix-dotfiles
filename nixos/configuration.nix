@@ -20,8 +20,7 @@
     efiSupport = true;
     device = "nodev"; # or use actual device like "/dev/sda" if needed
     useOSProber = true;
-  };
-  
+  };  
 
   networking.hostName = "nixos-btw"; # Define your hostname.
   # Pick only one of the below networking options.
@@ -114,12 +113,28 @@
     ];
   };
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+  };
+  # ^ steam ^
+
+  # maybe??
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam"
+    "steam-original"
+    "steam-unwrapped"
+    "steam-run"
+  ];
+  # ^ more steam ^
+
   programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     alacritty
     btop
@@ -141,12 +156,20 @@
     pavucontrol
     vanilla-dmz
     rofi-power-menu
-    pipes
     papirus-icon-theme
     fira-code-nerdfont
     lxappearance
     rofi-power-menu
-  ];
+    bibata-cursors
+    wlroots
+    hyprshot
+    jq
+    grim
+    slurp
+    wl-clipboard
+    pipes
+    unzip
+    ];
 
   environment.variables = {
     XCURSOR_THEME = "Breeze";
