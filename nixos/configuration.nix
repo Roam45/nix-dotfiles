@@ -47,14 +47,40 @@
   };
 
   environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
+    MOZ_ENABLE_WAYLAND = "1";
   };
 
-  hardware = {
-    graphics.enable = true;
-    nvidia.modesetting.enable = true;
+
+
+  hardware.nvidia = {
+    open = false;
+    modesetting.enable = true;
+    powerManagement.enable = false;
   };
+
+
+  networking.firewall.allowedTCPPorts = [ 22 ];
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      X11Forwarding = true;
+      # Optional but helpful:
+      X11UseLocalhost = true;
+    };
+  };
+
+
+
+  # Display manager
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
+
+  # KDE Plasma
+  services.desktopManager.plasma6.enable = true;
+
+
 
 
   # Enable the X11 windowing system.
@@ -75,10 +101,29 @@
 #	};
 
   xdg.portal.enable = true;
-  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-hyprland
+    kdePackages.xdg-desktop-portal-kde
+  ];
+
+  services.xserver = {
+    enable = true;
+
+    videoDrivers = [ "nvidia" ];
+
+    displayManager.sddm.enable = true;
+
+    desktopManager.plasma6.enable = true;
+
+    # IMPORTANT: force KWin X11
+    displayManager.defaultSession = "plasma";
+  };
+
 
 
   services.flatpak.enable = true;
+  services.upower.enable = true;
+
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -92,6 +137,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     jack.enable = true;
+    wireplumber.enable = true;
   };
   # Enable sound.
   # hardware.pulseaudio.enable = true;
@@ -107,7 +153,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.styrofoam = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "audio"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
       tree
     ];
@@ -130,11 +176,25 @@
   ];
   # ^ more steam ^
 
+  nixpkgs.config.allowUnfree = true;
+
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+  };
+
+
   programs.firefox.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    cudatoolkit
+    alvr
+    lutris
+    wineWowPackages.stable
+    winetricks
+    waybar
     wget
     alacritty
     btop
@@ -146,18 +206,16 @@
     micro
     fastfetch
     hyprland
-    waybar
     mako
     libnotify
     swww
-    vinegar
     cava
     networkmanagerapplet
     pavucontrol
     vanilla-dmz
     rofi-power-menu
     papirus-icon-theme
-    fira-code-nerdfont
+    nerd-fonts.fira-code
     lxappearance
     rofi-power-menu
     bibata-cursors
@@ -170,6 +228,18 @@
     pipes
     unzip
     neovim
+    gcc
+    autoconf
+    automake
+    binutils 
+    which
+    zig
+    clang
+    jdk
+    xorg.xauth          # Required for SSH X11
+    xorg.xeyes          # For testing
+    xorg.libX11         # Core X11 library
+    antimicrox
     ];
 
   environment.variables = {
