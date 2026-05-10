@@ -200,7 +200,6 @@
     btop
     pcmanfm
     rofi
-    rofi-wayland
     git
     pfetch
     micro
@@ -268,7 +267,7 @@
       # (builtins.attrValues nerd-fonts)
 
       # Emoji support
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       twemoji-color-font
     ];
 
